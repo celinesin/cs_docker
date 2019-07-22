@@ -1,0 +1,35 @@
+# Docker file to create image for Monocle3beta and velocyto
+# Celine 22062019
+# --------------------
+# makeconf file switch is because libudunits2 installion requires gcc compiler instead of x86_64-conda_cos6-linux-gnu-c++
+
+
+
+
+
+FROM jupyter/datascience-notebook:abdb27a6dfbb
+
+# for install_github
+USER root
+RUN ln -s /bin/gzip /usr/bin/gzip
+RUN ln -s /bin/tar /bin/gtar
+
+
+# Monocle
+RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
+RUN conda install -c bioconda bioconductor-hdf5array
+RUN Rscript -e "BiocManager::install(c('SingleCellExperiment', 'SummarizedExperiment', 'DelayedMatrixStats', 'limma'))"
+RUN Rscript -e "install.packages('spData', repos='http://cran.us.r-project.org/')"
+
+# installing libudunits2 (monocle dependency): requires gcc compiler instead of conda compiler, so switch out makeconf file to specify this (and put it back)
+RUN sudo apt-get update
+RUN sudo apt-get install -y libudunits2-dev
+RUN mv /opt/conda/lib/R/etc/Makeconf /opt/conda/lib/R/etc/Makeconf_older
+COPY Makeconf /opt/conda/lib/R/etc/Makeconf
+RUN Rscript -e "install.packages('udunits2', repos='http://cran.us.r-project.org/')"
+RUN mv /opt/conda/lib/R/etc/Makeconf_older /opt/conda/lib/R/etc/Makeconf
+
+
+RUN Rscript -e "library(devtools); options(unzip = 'internal'); install_github('cole-trapnell-lab/monocle3')"
+
+
