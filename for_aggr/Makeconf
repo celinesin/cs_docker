@@ -12,7 +12,7 @@ include $(R_SHARE_DIR)/make/vars.mk
 AR = x86_64-conda_cos6-linux-gnu-ar
 BLAS_LIBS = -L"$(R_HOME)/lib$(R_ARCH)" -lRblas
 C_VISIBILITY = -fvisibility=hidden
-CC = gcc
+CC = x86_64-conda_cos6-linux-gnu-cc
 CFLAGS = -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe -I/opt/conda/include -fdebug-prefix-map=${SRC_DIR}=/usr/local/src/conda/${PKG_NAME}-${PKG_VERSION} -fdebug-prefix-map=${PREFIX}=/usr/local/src/conda-prefix $(LTO)
 CPICFLAGS = -fpic
 CPPFLAGS = -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -I/opt/conda/include -Wl,-rpath-link,/opt/conda/lib
@@ -151,7 +151,9 @@ ALL_OBJCFLAGS = $(PKG_OBJCFLAGS) $(CPICFLAGS) $(SHLIB_CFLAGS) $(OBJCFLAGS)
 ALL_OBJCXXFLAGS = $(PKG_OBJCXXFLAGS) $(CXXPICFLAGS) $(SHLIB_CXXFLAGS) $(OBJCXXFLAGS)
 ALL_FFLAGS = $(R_XTRA_FFLAGS) $(PKG_FFLAGS) $(FPICFLAGS) $(SHLIB_FFLAGS) $(FFLAGS)
 ## LIBR here as a couple of packages use this without SHLIB_LINK
+PKG_LIBS = -I/usr/include/boost/
 ALL_LIBS = $(PKG_LIBS) $(SHLIB_LIBADD) $(LIBR)# $(LIBINTL)
+
 
 .SUFFIXES:
 .SUFFIXES: .c .cc .cpp .d .f .f90 .f95 .m .mm .M .o

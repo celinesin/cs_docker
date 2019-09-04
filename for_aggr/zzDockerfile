@@ -19,6 +19,7 @@ RUN apt-get install -y libudunits2-dev
 RUN conda install -c bioconda bioconductor-hdf5array
 RUN conda install -c r r-reticulate
 
+
 # Monocle
 RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
 RUN Rscript -e "BiocManager::install(c('SingleCellExperiment', 'SummarizedExperiment', 'DelayedMatrixStats', 'limma', 'BiocGenerics', 'DelayedArray', 'S4Vectors'))"
@@ -39,8 +40,11 @@ RUN conda install -c vtraag louvain
 RUN Rscript -e "library(reticulate); conda_create('r-reticulate'); reticulate::py_install('louvain')"
 RUN Rscript -e "options(unzip = 'internal'); devtools::install_github('cole-trapnell-lab/monocle3', ref='45f57a0')"
 
+
 # Seurat
 RUN Rscript -e "install.packages('Seurat', repos='http://cran.wu.ac.at/')"
+
+
 
 # Velocyto
 
@@ -49,11 +53,10 @@ RUN Rscript -e "options(unzip = 'internal'); devtools::install_github('hhoeflin/
 RUN sudo apt-get update
 RUN sudo apt-get install -y libboost-all-dev
 RUN ldconfig
-RUN sudo apt-get install -y libbz2-dev
 
 RUN conda install numpy scipy cython numba matplotlib scikit-learn h5py click
-RUN pip install loompy
-RUN conda install -c bioconda pysam 
+RUN pip install pysam
+
 RUN pip install velocyto
 
 RUN mv /opt/conda/lib/R/etc/Makeconf /opt/conda/lib/R/etc/Makeconf_older
@@ -67,7 +70,3 @@ RUN mv /opt/conda/lib/R/etc/Makeconf_older /opt/conda/lib/R/etc/Makeconf
 # additional tools
 RUN conda install -c bioconda samtools
 RUN conda install -c r r-xlsx
-
-
-# SCENIC
-RUN pip install pyscenic
