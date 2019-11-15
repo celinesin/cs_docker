@@ -13,11 +13,8 @@ RUN apt-get update
 # for database stuff
 RUN apt-get install -y libmysqlclient-dev
 RUN pip install mysqlclient
-<<<<<<< Updated upstream
 
 RUN pip install mygene umap-learn
-=======
-RUN pip install mygene
 
 # for data manipulation
 RUN pip install openpyxl
@@ -30,4 +27,3 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # for dash stuff
 RUN pip install gunicorn dash_cytoscape
->>>>>>> Stashed changes
