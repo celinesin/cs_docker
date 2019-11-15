@@ -13,4 +13,4 @@ RUN apt-get update
 RUN apt-get install -y libmysqlclient-dev
 RUN pip install mysqlclient
 
-RUN pip install mygene
+RUN pip install mygene umap-learn
