@@ -10,7 +10,24 @@ LABEL maintainer="csin@cemm.oeaw.ac.at"
 USER root
 RUN apt-get update
 
+# for database stuff
 RUN apt-get install -y libmysqlclient-dev
 RUN pip install mysqlclient
+<<<<<<< Updated upstream
 
 RUN pip install mygene umap-learn
+=======
+RUN pip install mygene
+
+# for data manipulation
+RUN pip install openpyxl
+
+# for pretty figures
+RUN pip install matplotlib==3.1.1 palettable
+COPY fonts /usr/share/fonts/truetype/
+RUN fc-cache -fv
+RUN rm /home/jovyan/.cache/matplotlib -rf
+
+# for dash stuff
+RUN pip install gunicorn dash_cytoscape
+>>>>>>> Stashed changes

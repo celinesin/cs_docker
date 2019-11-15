@@ -6,8 +6,8 @@ PATH is where the dockerfile is located
 
 
 
-
-
+# remove images
+docker image rm
 
 
 Useful commands:
