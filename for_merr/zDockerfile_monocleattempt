@@ -1,0 +1,39 @@
+# Docker file to create image for Merrit's data
+
+
+FROM jupyter/datascience-notebook:7a0c7325e470
+
+LABEL version="0.0.1"
+LABEL description="Docker instance for Merrit's data"
+LABEL maintainer="csin@cemm.oeaw.ac.at"
+
+# define zip/tar things (for install_github)
+USER root
+RUN ln -s /bin/gzip /usr/bin/gzip
+RUN ln -s /bin/tar /bin/gtar
+RUN Rscript -e "install.packages('devtools', repos='http://cran.us.r-project.org/')"
+
+# install Monocle
+RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install(); BiocManager::install(c('BiocGenerics', 'DelayedArray', 'DelayedMatrixStats', 'limma', 'S4Vectors', 'SingleCellExperiment', 'SummarizedExperiment', 'batchelor'))"
+RUN conda install -c conda-forge r-udunits2 
+RUN Rscript -e "options(unzip = 'internal'); install.packages('units', repos='http://cran.us.r-project.org/', type = 'source')"
+
+RUN conda install -c conda-forge gdal 
+RUN conda install -c conda-forge r-gdalutils
+RUN conda install -c r r-gdata
+RUN conda install -c conda-forge r-spdep
+
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN echo 'deb http://private-repo-1.hortonworks.com/HDP/ubuntu14/2.x/updates/2.4.2.0 HDP main' >> /etc/apt/sources.list.d/HDP.list
+RUN echo 'deb http://private-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/ubuntu14 HDP-UTILS main'  >> /etc/apt/sources.list.d/HDP.list
+RUN echo 'deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/azurecore/ trusty main' >> /etc/apt/sources.list.d/azure-public-trusty.list
+RUN apt-get install -y libgdal-dev
+RUN apt-get -y build-dep libcurl4-gnutls-dev
+RUN apt-get -y install libcurl4-gnutls-dev
+
+RUN Rscript -e "install.packages('sf', repos='http://cran.us.r-project.org/')"
+RUN Rscript -e "options(unzip = 'internal'); devtools::install_github('cole-trapnell-lab/leidenbase')"
+RUN Rscript -e "options(unzip = 'internal'); devtools::install_github('cole-trapnell-lab/monocle3')"
+
+# install Seurat
+RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/')"
