@@ -7,22 +7,17 @@ LABEL maintainer="csin@cemm.oeaw.ac.at"
 
 USER root
 
+# install samtools
+RUN conda install -c bioconda samtools
+
 # install scanpy
 RUN pip install scanpy python-igraph louvain
 
-# install palantir
-RUN pip install git+https://github.com/jacoblevine/phenograph.git
-RUN git clone git://github.com/dpeerlab/Palantir.git
-RUN cd Palantir; pip install .
+# install velocyto
+RUN conda install numpy scipy cython numba matplotlib scikit-learn h5py click
+RUN pip install velocyto
 
-# install stream
-RUN conda config --add channels defaults
-RUN conda config --add channels conda-forge
-RUN conda config --add channels bioconda
-RUN apt-get update && apt-get install gsl-bin libgsl0-dev -y && apt-get clean
-RUN conda install libgfortran stream=0.4.0 tzlocal -y && conda clean --all -y
-RUN Rscript -e 'install.packages("stringi",repos="https://cloud.r-project.org/")'
-
-# install dynamo
-RUN git clone git://github.com/aristoteleo/dynamo-release.git
-RUN pip install dynamo-release/.
+# install GENIE3
+RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
+RUN Rscript -e 'BiocManager::install("GENIE3")'
+RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
