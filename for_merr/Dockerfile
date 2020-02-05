@@ -21,3 +21,6 @@ RUN pip install velocyto
 RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
 RUN Rscript -e 'BiocManager::install("GENIE3")'
 RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
+
+# install other R things
+RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'

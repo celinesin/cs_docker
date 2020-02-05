@@ -27,3 +27,6 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # for dash stuff
 RUN pip install gunicorn dash_cytoscape
+
+# for felix pipeline
+RUN pip install prettytable networkx dash==1.7.0 fisher
