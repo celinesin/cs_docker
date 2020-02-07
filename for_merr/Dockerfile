@@ -6,6 +6,7 @@ LABEL description="Docker instance for Merrit's data"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
 USER root
+RUN ln -s /bin/tar /bin/gtar
 
 # install samtools
 RUN conda install -c bioconda samtools
@@ -28,6 +29,7 @@ RUN Rscript -e 'BiocManager::install(c("zoo", "mixtools", "rbokeh"))'
 RUN Rscript -e 'BiocManager::install(c("DT", "NMF", "pheatmap", "R2HTML", "Rtsne"))'
 RUN Rscript -e 'BiocManager::install(c("doMC", "doRNG"))'
 RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes = TRUE)'
+RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
 
 # install pySCENIC
 RUN pip install pyscenic
