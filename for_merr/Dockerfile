@@ -33,3 +33,6 @@ RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
 
 # install pySCENIC
 RUN pip install pyscenic
+
+# install network tools
+RUN pip install ForceAtlas2
