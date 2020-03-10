@@ -30,10 +30,16 @@ RUN Rscript -e 'BiocManager::install(c("zoo", "mixtools", "rbokeh"))'
 RUN Rscript -e 'BiocManager::install(c("DT", "NMF", "pheatmap", "R2HTML", "Rtsne"))'
 RUN Rscript -e 'BiocManager::install(c("doMC", "doRNG"))'
 RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes = TRUE)'
-RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
+#RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
 
 # install pySCENIC
 RUN pip install pyscenic
 
 # install network tools
 RUN pip install ForceAtlas2
+
+# for pretty figures
+RUN pip install matplotlib==3.1.1 palettable
+COPY fonts /usr/share/fonts/truetype/
+RUN fc-cache -fv
+RUN rm /home/jovyan/.cache/matplotlib -rf
