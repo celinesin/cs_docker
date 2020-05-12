@@ -27,3 +27,5 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # for dash stuff
 RUN pip install gunicorn dash_cytoscape
+
+RUN pip install ForceAtlas2
