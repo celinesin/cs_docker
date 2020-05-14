@@ -28,4 +28,6 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 # for dash stuff
 RUN pip install gunicorn dash_cytoscape
 
-RUN pip install ForceAtlas2
+RUN pip install fa2
+RUN apt-get install -y libgraphviz-dev graphviz pkg-config 
+RUN pip install pygraphviz pydot
