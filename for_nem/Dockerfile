@@ -1,0 +1,28 @@
+# Docker file to create image for network essentiality metric project
+
+
+FROM jupyter/datascience-notebook:abdb27a6dfbb
+
+LABEL version="0.0.1"
+LABEL description="Docker instance for network essentiality metric project"
+LABEL maintainer="csin@cemm.oeaw.ac.at"
+
+USER root
+RUN apt-get update
+
+# for analysis
+RUN pip install networkx
+RUN pip install numpy pandas scipy
+
+# for database stuff
+RUN pip install mygene
+
+# for data manipulation
+RUN pip install openpyxl
+
+# for pretty figures
+RUN pip install matplotlib==3.1.1 palettable
+COPY fonts /usr/share/fonts/truetype/
+RUN fc-cache -fv
+RUN rm /home/jovyan/.cache/matplotlib -rf
+
