@@ -1,7 +1,9 @@
 # Docker file to create image for network essentiality metric project
 
 
-FROM jupyter/datascience-notebook:abdb27a6dfbb
+#FROM jupyter/datascience-notebook:abdb27a6dfbb
+FROM jupyter/datascience-notebook:04f7f60d34a6
+
 
 LABEL version="0.0.1"
 LABEL description="Docker instance for network essentiality metric project"
@@ -24,6 +26,6 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # for analysis
 RUN pip install networkx
-RUN pip install numpy pandas scipy
+RUN pip install scikit-learn numba
 RUN pip install umap-learn
 
