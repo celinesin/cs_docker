@@ -10,10 +10,6 @@ LABEL maintainer="csin@cemm.oeaw.ac.at"
 USER root
 RUN apt-get update
 
-# for analysis
-RUN pip install networkx
-RUN pip install numpy pandas scipy
-
 # for database stuff
 RUN pip install mygene
 
@@ -25,4 +21,9 @@ RUN pip install matplotlib==3.1.1 palettable
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
+
+# for analysis
+RUN pip install networkx
+RUN pip install numpy pandas scipy
+RUN pip install umap-learn
 

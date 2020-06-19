@@ -1,6 +1,5 @@
 # Docker file to create image for SLC genetic interactions project
 
-
 FROM jupyter/datascience-notebook:abdb27a6dfbb
 
 LABEL version="0.0.1"
