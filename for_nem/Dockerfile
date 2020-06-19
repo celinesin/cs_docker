@@ -27,5 +27,5 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 # for analysis
 RUN pip install networkx
 RUN pip install scikit-learn numba
-RUN pip install umap-learn
+RUN pip install umap-learn umap-learn[plot]
 
