@@ -30,7 +30,7 @@ RUN pip install scikit-learn numba
 RUN pip install umap-learn umap-learn[plot]
 
 # for pySCENIC
-RUN pip install pyscenic
+RUN pip install pyscenic==0.10.0
 RUN pip install fsspec>=0.3.3
 RUN pip install dask[dataframe] --upgrade
 RUN pip install distributed -U
