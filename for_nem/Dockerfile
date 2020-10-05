@@ -31,7 +31,7 @@ RUN pip install umap-learn
 RUN pip install umap-learn[plot]
 
 # for pySCENIC
-RUN pip install pyscenic
+RUN pip install pyscenic==0.10.0
 RUN pip install fsspec>=0.3.3
 RUN pip install dask[dataframe] --upgrade
 RUN pip install distributed -U
