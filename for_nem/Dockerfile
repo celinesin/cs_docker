@@ -28,6 +28,7 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 RUN pip install networkx
 RUN pip install scikit-learn numba
 RUN pip install umap-learn umap-learn[plot]
+RUN pip install fa2
 
 # for pySCENIC
 RUN pip install pyscenic==0.10.0
