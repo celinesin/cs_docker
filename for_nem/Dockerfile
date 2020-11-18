@@ -37,3 +37,6 @@ RUN pip install fsspec>=0.3.3
 RUN pip install dask[dataframe] --upgrade
 RUN pip install distributed -U
 
+# for chris pipeline
+pip install colormap easydev colormath fisher node2vec plotly pymysql prettytable
+
