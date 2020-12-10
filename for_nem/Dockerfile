@@ -38,5 +38,14 @@ RUN pip install dask[dataframe] --upgrade
 RUN pip install distributed -U
 
 # for chris pipeline
-pip install colormap easydev colormath fisher node2vec plotly pymysql prettytable
+RUN pip install colormap easydev colormath fisher node2vec plotly pymysql prettytable
 
+# for netctrl
+COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
+RUN tar -xf igraph-0.8.5.tar.gz
+WORKDIR igraph-0.8.5
+RUN ./configure
+RUN make
+RUN make install
+
+COPY netctrl ~/.local/bin/
