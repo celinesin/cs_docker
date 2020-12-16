@@ -48,4 +48,4 @@ RUN ./configure
 RUN make
 RUN make install
 
-COPY netctrl ~/.local/bin/
+COPY netctrl /usr/local/bin/
