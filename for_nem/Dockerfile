@@ -49,3 +49,4 @@ RUN make
 RUN make install
 
 COPY netctrl /usr/local/bin/
+WORKDIR /home/jovyan
