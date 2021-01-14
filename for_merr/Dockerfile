@@ -1,18 +1,35 @@
 # Docker file to create image for Merrit's data
-FROM jupyter/datascience-notebook:04f7f60d34a6
+FROM jupyter/datascience-notebook:notebook-6.1.6
 
-LABEL version="0.0.1"
+LABEL version="0.1.0"
 LABEL description="Docker instance for Merrit's data"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
+# generally useful things
 USER root
-RUN ln -s /bin/tar /bin/gtar
+RUN apt-get update
+RUN apt-get install build-essential
+RUN apt-get -y install python3-dev
 
 # for pretty figures
 RUN pip install matplotlib==3.1.1 palettable
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
+
+# install network tools
+RUN pip install ForceAtlas2 networkx
+
+# for netctrl
+COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
+RUN tar -xf igraph-0.8.5.tar.gz
+WORKDIR igraph-0.8.5
+RUN ./configure
+RUN make
+RUN make install
+
+COPY netctrl /usr/local/bin/
+WORKDIR /home/jovyan
 
 # install samtools
 RUN conda install -c bioconda samtools
@@ -36,25 +53,13 @@ RUN Rscript -e 'BiocManager::install(c("zoo", "mixtools", "rbokeh"))'
 RUN Rscript -e 'BiocManager::install(c("DT", "NMF", "pheatmap", "R2HTML", "Rtsne"))'
 RUN Rscript -e 'BiocManager::install(c("doMC", "doRNG"))'
 RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes = TRUE)'
-#RUN Rscript -e 'update.packages(repos = "http://cran.us.r-project.org")'
 
 # install pySCENIC
 RUN pip install pyscenic
 
-# install CellOracle
-RUN conda install goatools pyarrow tqdm joblib
+# install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
+RUN conda install pyarrow tqdm joblib
+RUN pip install goatools
 RUN pip install git+https://github.com/morris-lab/CellOracle.git
 
-# install network tools
-RUN pip install ForceAtlas2 networkx
 
-# for netctrl
-COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
-RUN tar -xf igraph-0.8.5.tar.gz
-WORKDIR igraph-0.8.5
-RUN ./configure
-RUN make
-RUN make install
-
-COPY netctrl /usr/local/bin/
-WORKDIR /home/jovyan
