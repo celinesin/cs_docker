@@ -25,5 +25,5 @@ RUN pip install combat
 RUN pip install scikit-learn numba
 RUN pip install umap-learn 
 RUN pip install umap-learn[plot]
-
+RUN pip install holoviews[all]
 
