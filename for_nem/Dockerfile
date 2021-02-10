@@ -1,8 +1,7 @@
 # Docker file to create image for network essentiality metric project
 
 
-#FROM jupyter/datascience-notebook:abdb27a6dfbb
-FROM jupyter/datascience-notebook:04f7f60d34a6
+FROM jupyter/datascience-notebook:notebook-6.1.6
 
 
 LABEL version="0.0.1"
