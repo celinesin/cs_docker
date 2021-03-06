@@ -1,7 +1,7 @@
 # Docker file to create image for Merrit's data
 FROM jupyter/datascience-notebook:notebook-6.1.6
 
-LABEL version="0.1.0"
+LABEL version="0.2.0"
 LABEL description="Docker instance for Merrit's data"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
@@ -58,8 +58,9 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 RUN pip install pyscenic
 
 # install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
-RUN conda install pyarrow tqdm joblib
-RUN pip install goatools
-RUN pip install git+https://github.com/morris-lab/CellOracle.git
+RUN conda install goatools pyarrow tqdm joblib
+RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
+RUN pip install celloracle==0.6.4
+RUN pip install leidenalg
 
 
