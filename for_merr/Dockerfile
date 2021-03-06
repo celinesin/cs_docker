@@ -10,6 +10,7 @@ USER root
 RUN apt-get update
 RUN apt-get install build-essential
 RUN apt-get -y install python3-dev
+RUN conda config --add channels bioconda
 
 # for pretty figures
 RUN pip install matplotlib==3.1.1 palettable
