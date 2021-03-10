@@ -66,7 +66,7 @@ RUN apt-get -y install libcurl4-openssl-dev
 RUN pip install pyBigWig
 RUN pip install gimmemotifs==0.15.3
 RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
-RUN pip install genomepy leidenalg ipyvuetify
+RUN pip install genomepy leidenalg ipyvuetify scikit-misc
 RUN pip install git+https://github.com/morris-lab/CellOracle.git
 
 
