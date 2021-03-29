@@ -47,6 +47,7 @@ RUN pip install velocyto
 RUN Rscript -e "install.packages(c('BiocManager', 'devtools'), repos='http://cran.us.r-project.org/'); BiocManager::install();"
 RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
 RUN Rscript -e 'devtools::install_github(repo = "satijalab/seurat")'
+RUN Rscript -e 'BiocManager::install("DESeq2")'
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
 RUN Rscript -e 'BiocManager::install(c("AUCell", "RcisTarget"))'
