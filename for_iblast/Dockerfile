@@ -67,4 +67,5 @@ RUN pip install leidenalg
 # 
 RUN pip install mygene
 RUN pip install netcomp
+RUN Rscript -e 'package.install("scLink")'
 
