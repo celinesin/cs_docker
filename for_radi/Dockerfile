@@ -27,3 +27,4 @@ RUN pip install umap-learn
 RUN pip install umap-learn[plot]
 RUN pip install holoviews[all]
 
+RUN sudo apt-get install plastimatch

@@ -20,6 +20,7 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # install network tools
 RUN pip install ForceAtlas2 networkx
+RUN pip install netcomp
 
 # for netctrl
 COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
@@ -66,6 +67,5 @@ RUN pip install leidenalg
 
 # 
 RUN pip install mygene
-RUN pip install netcomp
 RUN Rscript -e 'package.install("scLink")'
 
