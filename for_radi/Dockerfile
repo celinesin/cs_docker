@@ -23,8 +23,11 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 RUN pip install pyradiomics
 RUN pip install combat
 RUN pip install scikit-learn numba
-RUN pip install umap-learn 
+RUN pip install holoviews
+RUN pip install llvmlite --ignore-installed
+RUN pip install umap-learn==0.4.5 
 RUN pip install umap-learn[plot]
 RUN pip install holoviews[all]
 
 RUN sudo apt-get install plastimatch
+RUN pip install --upgrade nbconvert
