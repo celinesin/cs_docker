@@ -10,7 +10,9 @@ USER root
 RUN apt-get update
 RUN apt-get install build-essential
 RUN apt-get -y install python3-dev
+RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
+RUN conda config --add channels conda-forge
 
 # for pretty figures
 RUN pip install matplotlib==3.1.1 palettable
@@ -60,12 +62,16 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 RUN pip install pyscenic
 
 # install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
-RUN conda install goatools pyarrow tqdm joblib
+RUN conda install goatools pyarrow tqdm joblib 
+RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
 RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
-RUN pip install celloracle==0.6.4
+RUN pip install git+https://github.com/morris-lab/CellOracle.git 
 RUN pip install leidenalg
 
 # 
 RUN pip install mygene
 RUN Rscript -e 'package.install("scLink")'
 
+RUN pip install netcomp
+RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
+RUN apt-get install bedtools
