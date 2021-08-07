@@ -28,5 +28,7 @@ RUN pip install llvmlite --ignore-installed
 RUN pip install umap-learn==0.4.5 
 RUN pip install umap-learn[plot]
 RUN pip install holoviews[all]
+
+RUN sudo apt-get install plastimatch
 RUN pip install --upgrade nbconvert
 RUN pip install pynrrd==0.4.2
