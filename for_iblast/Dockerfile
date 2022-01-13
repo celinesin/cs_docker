@@ -15,14 +15,14 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 
 # for pretty figures
-RUN pip install matplotlib==3.1.1 palettable
+RUN pip install matplotlib==3.1.1 palettable==3.3.0
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # install network tools
-RUN pip install ForceAtlas2 networkx
-RUN pip install netcomp
+RUN pip install ForceAtlas2==1.0 networkx==1.11
+RUN pip install netcomp==0.2.3
 
 # for netctrl
 COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
@@ -35,20 +35,30 @@ RUN make install
 COPY netctrl /usr/local/bin/
 WORKDIR /home/jovyan
 
-# install samtools
+# install tools for genetics
 RUN conda install -c bioconda samtools
+RUN pip install mygene==3.2.2
+RUN apt-get install bedtools=2.30.0
+RUN chmod 777 ~/.cache/gimmemotifs/
 
-# install scanpy
-RUN pip install scanpy python-igraph louvain
-
+# install tools for single cell
+RUN pip install scanpy==1.7.2 python-igraph louvain
+RUN pip install scanorama==1.7.1
 # install velocyto
 RUN conda install numpy scipy cython numba matplotlib scikit-learn h5py click
-RUN pip install velocyto
+RUN pip install velocyto==0.17.17
 
 # install R things
 RUN Rscript -e "install.packages(c('BiocManager', 'devtools'), repos='http://cran.us.r-project.org/'); BiocManager::install();"
 RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
 RUN Rscript -e 'devtools::install_github(repo = "satijalab/seurat")'
+
+# install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
+RUN conda install goatools pyarrow tqdm joblib 
+RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
+RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
+RUN pip install git+https://github.com/morris-lab/CellOracle.git 
+RUN pip install leidenalg==0.8.4
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
 RUN Rscript -e 'BiocManager::install(c("AUCell", "RcisTarget"))'
@@ -61,17 +71,6 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 # install pySCENIC
 RUN pip install pyscenic
 
-# install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
-RUN conda install goatools pyarrow tqdm joblib 
-RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
-RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
-RUN pip install git+https://github.com/morris-lab/CellOracle.git 
-RUN pip install leidenalg==0.8.4
-
-# 
-RUN pip install mygene==3.2.2
-RUN pip install netcomp==0.2.3
+# testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
-RUN apt-get install bedtools=2.30.0
-RUN chmod 777 ~/.cache/gimmemotifs/
 RUN pip install scanorama==1.7.1
