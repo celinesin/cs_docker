@@ -50,3 +50,6 @@ RUN make install
 
 COPY netctrl /usr/local/bin/
 WORKDIR /home/jovyan
+
+# update ipython kernal to stop "TypeError: required field "type_ignores" missing from Module" error
+pip install --upgrade ipython
