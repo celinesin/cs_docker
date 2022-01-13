@@ -1,8 +1,8 @@
-# Docker file to create image for Merrit's data
+# Docker file to create image for ROADdt_embryo
 FROM jupyter/datascience-notebook:notebook-6.1.6
 
 LABEL version="0.2.0"
-LABEL description="Docker instance for Merrit's data"
+LABEL description="Docker instance for ROADdt_embryo"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
 # generally useful things
@@ -65,10 +65,12 @@ RUN conda install goatools pyarrow tqdm joblib
 RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
 RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
 RUN pip install git+https://github.com/morris-lab/CellOracle.git 
-RUN pip install leidenalg
+RUN pip install leidenalg==0.8.4
 
 # 
-RUN pip install mygene
-RUN pip install netcomp
+RUN pip install mygene==3.2.2
+RUN pip install netcomp==0.2.3
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
-RUN apt-get install bedtools
+RUN apt-get install bedtools=2.30.0
+RUN chmod 777 ~/.cache/gimmemotifs/
+RUN pip install scanorama==1.7.1
