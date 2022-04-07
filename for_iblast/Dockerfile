@@ -38,8 +38,7 @@ WORKDIR /home/jovyan
 # install tools for genetics
 RUN conda install -c bioconda samtools
 RUN pip install mygene==3.2.2
-RUN apt-get install bedtools=2.30.0
-RUN chmod 777 ~/.cache/gimmemotifs/
+RUN apt-get install bedtools
 
 # install tools for single cell
 RUN pip install scanpy==1.7.2 python-igraph louvain
@@ -56,6 +55,7 @@ RUN Rscript -e 'devtools::install_github(repo = "satijalab/seurat")'
 # install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
 RUN conda install goatools pyarrow tqdm joblib 
 RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
+#RUN chmod 777 ~/.cache/gimmemotifs/
 RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
 RUN pip install git+https://github.com/morris-lab/CellOracle.git 
 RUN pip install leidenalg==0.8.4
