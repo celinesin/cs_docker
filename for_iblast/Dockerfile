@@ -74,3 +74,4 @@ RUN pip install pyscenic
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
 RUN pip install scanorama==1.7.1
+RUN pip install dynamo-release
