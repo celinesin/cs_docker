@@ -32,3 +32,5 @@ RUN pip install holoviews[all]
 RUN sudo apt-get install -y plastimatch
 RUN pip install --upgrade nbconvert
 RUN pip install pynrrd==0.4.2
+
+RUN pip install lifelines==0.27.1
