@@ -1,7 +1,7 @@
 # Docker file to create image for ROADdt_embryo
 FROM jupyter/datascience-notebook:notebook-6.1.6
 
-LABEL version="0.2.0"
+LABEL version="0.3.0"
 LABEL description="Docker instance for ROADdt_embryo"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
@@ -43,14 +43,23 @@ RUN apt-get install bedtools
 # install tools for single cell
 RUN pip install scanpy==1.7.2 python-igraph louvain
 RUN pip install scanorama==1.7.1
-# install velocyto
-RUN conda install numpy scipy cython numba matplotlib scikit-learn h5py click
-RUN pip install velocyto==0.17.17
+
+# install scvi
+RUN pip install torch==1.11.0
+RUN pip install torchaudio==0.11.0
+RUN pip install torchvision==0.12.0
+RUN pip install scvi-tools==0.15.4
+RUN pip install umap-learn==0.5.1
 
 # install R things
 RUN Rscript -e "install.packages(c('BiocManager', 'devtools'), repos='http://cran.us.r-project.org/'); BiocManager::install();"
 RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
 RUN Rscript -e 'devtools::install_github(repo = "satijalab/seurat")'
+
+# install velocyto
+RUN conda install numpy scipy cython numba matplotlib scikit-learn h5py click
+RUN pip install velocyto==0.17.17
+RUN pip install dynamo-release
 
 # install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
 RUN conda install goatools pyarrow tqdm joblib 
@@ -73,5 +82,4 @@ RUN pip install pyscenic
 
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
-RUN pip install scanorama==1.7.1
-RUN pip install dynamo-release
+
