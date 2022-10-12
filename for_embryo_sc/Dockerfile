@@ -59,7 +59,7 @@ RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/'
 
 # install velocyto
 RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
-RUN pip install numexpr==2.6.1
+RUN pip install numexpr==2.8.3
 RUN pip install velocyto==0.17.17
 RUN pip install dynamo-release==1.1.0
 
