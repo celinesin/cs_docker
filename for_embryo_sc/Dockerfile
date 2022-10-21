@@ -57,19 +57,17 @@ RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.
 RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
 RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/')"
 
-# install velocyto
-RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
-RUN pip install numexpr==2.8.3
-RUN pip install velocyto==0.17.17
-RUN pip install dynamo-release==1.1.0
-
 # install CellOracle (https://morris-lab.github.io/CellOracle.documentation/installation/index.html#optional-make-a-new-environment)
-RUN conda install goatools pyarrow tqdm joblib 
-RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
+#RUN conda install goatools pyarrow tqdm joblib
+#RUN conda install gimmemotifs==0.14.4 genomepy==0.8.4
 #RUN chmod 777 ~/.cache/gimmemotifs/
-RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
-RUN pip install git+https://github.com/morris-lab/CellOracle.git 
-RUN pip install leidenalg==0.8.4
+#RUN Rscript -e 'BiocManager::install(c("linkcomm", "rnetcarto"))'
+#RUN pip install git+https://github.com/morris-lab/CellOracle.git
+#RUN pip install leidenalg==0.8.4
+RUN apt install -y libcurl4-openssl-dev
+RUN apt install -y zlib1g
+RUN pip install pyBigWig==0.3.18
+RUN pip install celloracle==0.10.12
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
 RUN Rscript -e 'BiocManager::install(c("AUCell", "RcisTarget"))'
@@ -81,6 +79,14 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 
 # install pySCENIC
 RUN pip install pyscenic==0.12.0
+
+# install velocyto
+RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
+RUN pip install leidenalg==0.9.0
+RUN pip install velocyto==0.17.17
+RUN pip install dynamo-release==1.0.0
+#RUN pip install statsmodels==0.13.2
+
 
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
