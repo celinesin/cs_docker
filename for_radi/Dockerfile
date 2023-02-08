@@ -37,3 +37,5 @@ RUN pip install lifelines==0.27.1
 
 # for tables (pandas problem)
 RUN pip install zentables==0.2.3
+
+RUN R -e "install.packages(c('survival', 'timeROC', 'readxl'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
