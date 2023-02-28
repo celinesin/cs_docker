@@ -1,5 +1,5 @@
 # Docker file to create image for ROADdt_embryo_sc
-FROM jupyter/datascience-notebook:notebook-6.1.6
+FROM jupyter/datascience-notebook:notebook-6.5.2
 
 LABEL version="0.3.0"
 LABEL description="Docker instance for ROADdt_embryo_sc (single cell analysis)"
