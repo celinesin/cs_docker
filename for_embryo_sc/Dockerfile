@@ -86,7 +86,7 @@ RUN pip install leidenalg==0.9.0
 RUN pip install velocyto==0.17.17
 RUN pip install dynamo-release==1.0.0
 #RUN pip install statsmodels==0.13.2
-
+RUN pip install scikit-misc==0.1.4
 
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"

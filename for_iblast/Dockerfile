@@ -86,3 +86,6 @@ RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/'
 
 # jupyterproblem
 RUN pip install markupsafe==2.0.1
+
+# update scipy
+RUN pip install scipy==1.9.1
