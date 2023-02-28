@@ -15,7 +15,7 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 
 # for pretty figures
-RUN pip install matplotlib==3.1.1 palettable==3.3.0
+RUN pip install matplotlib==3.5.3 palettable==3.3.0
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
