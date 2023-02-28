@@ -21,7 +21,7 @@ RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # install network tools
-RUN pip install ForceAtlas2==1.0 networkx==1.11
+RUN pip install ForceAtlas2==1.0 networkx==3.0
 RUN pip install netcomp==0.2.3
 
 # for netctrl
