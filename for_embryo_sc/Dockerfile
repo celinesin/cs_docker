@@ -41,8 +41,16 @@ RUN pip install mygene==3.2.2
 RUN apt-get install bedtools
 
 # install tools for single cell
-RUN pip install scanpy==1.7.2 python-igraph louvain
+RUN pip install dynamo-release==1.2.0
+RUN pip install scanpy==1.9.1 python-igraph louvain
 RUN pip install scanorama==1.7.1
+
+# install velocyto
+#RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
+RUN pip install leidenalg==0.9.0
+#RUN pip install velocyto==0.17.17
+#RUN pip install statsmodels==0.13.2
+RUN pip install scikit-misc==0.1.4
 
 # install scvi
 RUN pip install torch==1.11.0
@@ -79,14 +87,6 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 
 # install pySCENIC
 RUN pip install pyscenic==0.12.0
-
-# install velocyto
-#RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
-RUN pip install leidenalg==0.9.0
-#RUN pip install velocyto==0.17.17
-RUN pip install dynamo-release==1.2.0
-#RUN pip install statsmodels==0.13.2
-RUN pip install scikit-misc==0.1.4
 
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
