@@ -8,7 +8,7 @@ LABEL maintainer="csin@cemm.oeaw.ac.at"
 # generally useful things
 USER root
 RUN apt-get update
-RUN apt-get install build-essential
+RUN apt-get -y install build-essential
 RUN apt-get -y install python3-dev
 RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
