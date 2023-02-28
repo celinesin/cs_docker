@@ -15,6 +15,7 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 
 # install tools for single cell
+RUN pip install numba==0.54.0
 RUN pip install dynamo-release==1.2.0
 
 # for pretty figures
