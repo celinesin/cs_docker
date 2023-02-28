@@ -14,6 +14,9 @@ RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 
+# install tools for single cell
+RUN pip install dynamo-release==1.2.0
+
 # for pretty figures
 RUN pip install matplotlib==3.5.3 palettable==3.3.0
 COPY fonts /usr/share/fonts/truetype/
@@ -40,8 +43,7 @@ RUN conda install -c bioconda samtools
 RUN pip install mygene==3.2.2
 RUN apt-get install bedtools
 
-# install tools for single cell
-RUN pip install dynamo-release==1.2.0
+
 RUN pip install scanpy==1.9.1 python-igraph louvain
 RUN pip install scanorama==1.7.1
 
