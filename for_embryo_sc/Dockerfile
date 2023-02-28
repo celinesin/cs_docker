@@ -81,9 +81,9 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 RUN pip install pyscenic==0.12.0
 
 # install velocyto
-RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
+#RUN conda install numpy scipy cython matplotlib scikit-learn h5py click
 RUN pip install leidenalg==0.9.0
-RUN pip install velocyto==0.17.17
+#RUN pip install velocyto==0.17.17
 RUN pip install dynamo-release==1.2.0
 #RUN pip install statsmodels==0.13.2
 RUN pip install scikit-misc==0.1.4
