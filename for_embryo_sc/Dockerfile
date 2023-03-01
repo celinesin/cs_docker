@@ -78,7 +78,7 @@ RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/'
 RUN apt install -y libcurl4-openssl-dev
 RUN apt install -y zlib1g
 RUN pip install pyBigWig==0.3.18
-RUN pip install celloracle==0.10.12
+RUN pip install celloracle==0.12.0
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
 RUN Rscript -e 'BiocManager::install(c("AUCell", "RcisTarget"))'
