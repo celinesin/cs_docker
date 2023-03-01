@@ -94,5 +94,7 @@ RUN pip install pyscenic==0.12.0
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
 
+RUN pip install cdlib==0.2.6
+
 # jupyterproblem
 RUN pip install markupsafe==2.0.1
