@@ -33,7 +33,13 @@ RUN pip install scvi-tools==0.15.4
 
 RUN pip install cdlib==0.2.6
 RUN conda install numba==0.54.0
-RUN pip install dynamo-release==1.2.0
+#RUN pip install dynamo-release==1.2.0
+RUN git clone https://github.com/aristoteleo/dynamo-release.git
+RUN cd dynamo-release
+RUN git reset --hard ba43701c
+RUN cd ..
+RUN pip install dynamo-release/
+
 
 # install R things, seurat for coexpression networks
 RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
