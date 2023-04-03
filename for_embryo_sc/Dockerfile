@@ -81,8 +81,11 @@ WORKDIR igraph-0.8.5
 RUN ./configure
 RUN make
 RUN make install
-
 COPY netctrl /usr/local/bin/
+
+# R and python interface
+RUN pip install pyreadr==0.4.7
+
 WORKDIR /home/jovyan
 
 
