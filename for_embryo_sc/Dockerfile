@@ -10,6 +10,7 @@ USER root
 RUN apt-get update
 RUN apt-get -y install build-essential
 RUN apt-get -y install python3-dev
+RUN apt update
 RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
@@ -35,10 +36,9 @@ RUN pip install cdlib==0.2.6
 RUN conda install numba==0.54.0
 #RUN pip install dynamo-release==1.2.0
 RUN git clone https://github.com/aristoteleo/dynamo-release.git
-RUN cd dynamo-release
+WORKDIR /home/jovyan/dynamo-release
 RUN git reset --hard ba43701c
-RUN cd ..
-RUN pip install dynamo-release/
+RUN pip install ../dynamo-release/
 
 
 # install R things, seurat for coexpression networks
