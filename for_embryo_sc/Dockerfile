@@ -58,6 +58,7 @@ RUN apt-get install bedtools
 RUN apt install -y libcurl4-openssl-dev
 RUN apt install -y zlib1g
 RUN pip install pyBigWig==0.3.18
+RUN conda install -c bioconda gimmemotifs==0.14.4
 RUN pip install celloracle==0.12.0
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
@@ -85,10 +86,6 @@ COPY netctrl /usr/local/bin/
 
 # R and python interface
 RUN pip install pyreadr==0.4.7
-
-# downgrade gimmemotifs for celloracle
-RUN pip uninstall gimmemotifs -y
-RUN pip install gimmemotifs==0.14.4
 
 WORKDIR /home/jovyan
 
