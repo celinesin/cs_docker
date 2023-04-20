@@ -88,7 +88,7 @@ RUN pip install pyreadr==0.4.7
 
 # downgrade gimmemotifs for celloracle
 RUN pip uninstall gimmemotifs -y
-RUN pip install gimmemotifs==0.14.4 -y
+RUN pip install gimmemotifs==0.14.4
 
 WORKDIR /home/jovyan
 
