@@ -58,7 +58,7 @@ RUN apt-get install bedtools
 RUN apt install -y libcurl4-openssl-dev
 RUN apt install -y zlib1g
 RUN pip install pyBigWig==0.3.18
-RUN conda install -c bioconda gimmemotifs==0.18.0
+RUN conda install -c bioconda gimmemotifs=0.18.0
 RUN pip install celloracle==0.12.0
 
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
