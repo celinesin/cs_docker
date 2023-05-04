@@ -59,7 +59,6 @@ RUN apt-get install bedtools
 RUN apt install -y libcurl4-openssl-dev
 RUN apt install -y zlib1g
 RUN pip install pyBigWig==0.3.18
-#RUN conda install -c bioconda gimmemotifs
 RUN pip install gimmemotifs==0.18.0
 RUN pip install celloracle==0.12.0
 
@@ -90,6 +89,7 @@ COPY netctrl /usr/local/bin/
 RUN pip install pyreadr==0.4.7
 
 WORKDIR /home/jovyan
-
+# for gimmemotifs
+RUN chmod -R 777 /home/jovyan/.cache
 
 
