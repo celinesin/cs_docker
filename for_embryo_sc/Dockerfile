@@ -93,9 +93,11 @@ WORKDIR /home/jovyan
 RUN chmod -R 777 /home/jovyan/.cache
 
 # for cell chat
-RUN Rscript -e 'install.packages('NMF')'
+RUN Rscript -e 'install.packages("NMF", repos="http://cran.us.r-project.org/")'
 RUN Rscript -e 'devtools::install_github("jokergoo/circlize")'
 RUN Rscript -e 'devtools::install_github("jokergoo/ComplexHeatmap")'
+RUN Rscript -e 'IRkernel::installspec(name = "ir43", displayname = "R 4.3.2")'
+RUN Rscript -e 'BiocManager::install("BiocNeighbors")'
 RUN Rscript -e 'devtools::install_github("sqjin/CellChat")'
 
 
