@@ -1,8 +1,7 @@
 # Docker file to create image for ROADdt_embryo_sc
-#FROM jupyter/datascience-notebook:notebook-6.3.0
-FROM jupyter/datascience-notebook:2022-04-24
+FROM jupyter/datascience-notebook:2023-10-20
 
-LABEL version="0.3.0"
+LABEL version="0.4.0"
 LABEL description="Docker instance for ROADdt_embryo_sc (single cell analysis)"
 LABEL maintainer="csin@cemm.oeaw.ac.at"
 
@@ -27,19 +26,19 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 
 # install tools for single cell
 RUN pip install umap-learn==0.5.1
-RUN pip install scikit-misc==0.1.4
+RUN pip install scikit-misc==0.3.1
 RUN pip install 'scanpy[leiden]'==1.9.3
 
-RUN pip install pyYAML==5.4.1 --ignore-installed
+RUN pip install pyYAML==6.0.1 --ignore-installed
 RUN pip install scvi-tools==0.15.4
 
-RUN pip install cdlib==0.2.6
-RUN conda install numba==0.54.0
-#RUN pip install dynamo-release==1.2.0
-RUN git clone https://github.com/aristoteleo/dynamo-release.git
-WORKDIR /home/jovyan/dynamo-release
-RUN git reset --hard ba43701c
-RUN pip install ../dynamo-release/
+#RUN pip install cdlib==0.2.6
+#RUN conda install numba==0.54.0
+RUN pip install dynamo-release==1.4.0
+#RUN git clone https://github.com/aristoteleo/dynamo-release.git
+#WORKDIR /home/jovyan/dynamo-release
+#RUN git reset --hard ba43701c
+#RUN pip install ../dynamo-release/
 
 
 # install R things, seurat for coexpression networks
@@ -73,8 +72,13 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 RUN pip install pyscenic==0.12.0
 
 # install network tools
-RUN pip install ForceAtlas2==1.0 networkx==3.0
-#RUN pip install netcomp==0.2.3
+RUN git clone https://github.com/AminAlam/forceatlas2
+# we do not use the original version from bhargavchippada/forceatlas2: incompatibility with python3.9+
+WORKDIR forceatlas2
+RUN git reset --hard f557c3c344a2ffd70697711de7e89245d2e7149c
+RUN python setup.py install
+RUN pip install networkx==3.0
+RUN pip install netcomp==0.2.3
 
 # for netctrl
 COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
@@ -87,17 +91,22 @@ COPY netctrl /usr/local/bin/
 
 # R and python interface
 RUN pip install pyreadr==0.4.7
-
 WORKDIR /home/jovyan
 # for gimmemotifs
 RUN chmod -R 777 /home/jovyan/.cache
 
 # for cell chat
 RUN Rscript -e 'install.packages("NMF", repos="http://cran.us.r-project.org/")'
-RUN Rscript -e 'devtools::install_github("jokergoo/circlize")'
-RUN Rscript -e 'devtools::install_github("jokergoo/ComplexHeatmap")'
-RUN Rscript -e 'IRkernel::installspec(name = "ir43", displayname = "R 4.3.2")'
+RUN Rscript -e 'devtools::install_github("jokergoo/circlize@9b21578")'
+RUN Rscript -e 'devtools::install_github("jokergoo/ComplexHeatmap@7d95ca5")'
 RUN Rscript -e 'BiocManager::install("BiocNeighbors")'
-RUN Rscript -e 'devtools::install_github("sqjin/CellChat")'
-
-
+RUN Rscript -e 'devtools::install_github("immunogenomics/presto@31dc97f")'
+RUN apt install -y cmake
+RUN Rscript -e 'devtools::install_github("astamm/nloptr@fb201fa")'
+RUN Rscript -e 'devtools::install_github("lme4/lme4@5b7b27e",dependencies=TRUE)'
+RUN Rscript -e 'install.packages(c("car", "rstatix", "ggpubr"), repos="http://cran.us.r-project.org/")'
+RUN apt-get install -y gfortran
+RUN apt-get -y install libglpk-dev libgmp-dev libxml2-dev
+RUN conda install r-igraph
+RUN Rscript -e 'install.packages("ggnetwork", repos="http://cran.us.r-project.org/")'
+RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
