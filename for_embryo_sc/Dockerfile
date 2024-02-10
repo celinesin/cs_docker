@@ -1,5 +1,5 @@
 # Docker file to create image for ROADdt_embryo_sc
-FROM jupyter/datascience-notebook:2023-10-20
+FROM jupyter/datascience-notebook:2023-05-30
 
 LABEL version="0.4.0"
 LABEL description="Docker instance for ROADdt_embryo_sc (single cell analysis)"
@@ -7,10 +7,10 @@ LABEL maintainer="csin@cemm.oeaw.ac.at"
 
 # generally useful things
 USER root
+RUN apt update
 RUN apt-get update
 RUN apt-get -y install build-essential
 RUN apt-get -y install python3-dev
-RUN apt update
 RUN conda config --add channels defaults
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
