@@ -112,3 +112,5 @@ RUN apt-get -y install libglpk-dev libgmp-dev libxml2-dev
 RUN conda install r-igraph
 RUN Rscript -e 'install.packages("ggnetwork", repos="http://cran.us.r-project.org/")'
 RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
+
+WORKDIR /scratch
