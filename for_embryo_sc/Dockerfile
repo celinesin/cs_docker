@@ -23,6 +23,8 @@ RUN pip install matplotlib==3.5.3 palettable==3.3.0
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
+RUN pip install plotly==5.19.0
+RUN pip install kaleido==0.2.1
 
 # install tools for single cell
 RUN pip install umap-learn==0.5.1
@@ -52,6 +54,7 @@ RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/'
 RUN conda install -c bioconda samtools
 RUN pip install mygene==3.2.2
 RUN apt-get install bedtools
+RUN pip install gseapy==1.1.1
 
 # install GRN packages
 # cellOracle
@@ -78,7 +81,6 @@ WORKDIR forceatlas2
 RUN git reset --hard f557c3c344a2ffd70697711de7e89245d2e7149c
 RUN python setup.py install
 RUN pip install networkx==3.0
-RUN pip install netcomp==0.2.3
 
 # for netctrl
 COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
