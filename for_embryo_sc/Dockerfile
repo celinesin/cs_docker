@@ -26,35 +26,44 @@ RUN rm /home/jovyan/.cache/matplotlib -rf
 RUN pip install plotly==5.19.0
 RUN pip install kaleido==0.2.1
 
-# install tools for single cell
+
+# for big data
 RUN pip install umap-learn==0.5.1
 RUN pip install scikit-misc==0.3.1
-RUN pip install 'scanpy[leiden]'==1.9.3
 
-RUN pip install pyYAML==6.0.1 --ignore-installed
-RUN pip install scvi-tools==0.15.4
+# install network tools
+RUN git clone https://github.com/AminAlam/forceatlas2
+# we do not use the original version from bhargavchippada/forceatlas2: incompatibility with python3.9+
+WORKDIR forceatlas2
+RUN git reset --hard f557c3c344a2ffd70697711de7e89245d2e7149c
+RUN python setup.py install
+RUN pip install networkx==3.0
+RUN pip install python-louvain==0.16
 
-#RUN pip install cdlib==0.2.6
-#RUN conda install numba==0.54.0
-RUN pip install dynamo-release==1.4.0
-#RUN git clone https://github.com/aristoteleo/dynamo-release.git
-#WORKDIR /home/jovyan/dynamo-release
-#RUN git reset --hard ba43701c
-#RUN pip install ../dynamo-release/
+# for netctrl
+COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
+RUN tar -xf igraph-0.8.5.tar.gz
+WORKDIR igraph-0.8.5
+RUN ./configure
+RUN make
+RUN make install
+COPY netctrl /usr/local/bin/
 
 
-# install R things, seurat for coexpression networks
-RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
-RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
-RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/')"
-# testing
-RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
 
 # install tools for genetics
 RUN conda install -c bioconda samtools
 RUN pip install mygene==3.2.2
 RUN apt-get install bedtools
 RUN pip install gseapy==1.1.1
+
+
+
+# install tools for single cell
+RUN pip install 'scanpy[leiden]'==1.9.3
+RUN pip install pyYAML==6.0.1 --ignore-installed
+RUN pip install scvi-tools==0.15.4
+RUN pip install dynamo-release==1.4.0
 
 # install GRN packages
 # cellOracle
@@ -74,28 +83,25 @@ RUN Rscript -e 'devtools::install_github("aertslab/SCopeLoomR", build_vignettes 
 # install pySCENIC
 RUN pip install pyscenic==0.12.0
 
-# install network tools
-RUN git clone https://github.com/AminAlam/forceatlas2
-# we do not use the original version from bhargavchippada/forceatlas2: incompatibility with python3.9+
-WORKDIR forceatlas2
-RUN git reset --hard f557c3c344a2ffd70697711de7e89245d2e7149c
-RUN python setup.py install
-RUN pip install networkx==3.0
 
-# for netctrl
-COPY igraph-0.8.5.tar.gz igraph-0.8.5.tar.gz
-RUN tar -xf igraph-0.8.5.tar.gz
-WORKDIR igraph-0.8.5
-RUN ./configure
-RUN make
-RUN make install
-COPY netctrl /usr/local/bin/
 
 # R and python interface
 RUN pip install pyreadr==0.4.7
 WORKDIR /home/jovyan
 # for gimmemotifs
 RUN chmod -R 777 /home/jovyan/.cache
+
+# install R things, seurat for coexpression networks
+RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
+RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
+RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/')"
+# testing
+RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
+
+
+
+
+
 
 # for cell chat
 RUN Rscript -e 'install.packages("NMF", repos="http://cran.us.r-project.org/")'
