@@ -73,6 +73,10 @@ RUN pip install pyBigWig==0.3.18
 RUN pip install gimmemotifs==0.18.0
 RUN pip install celloracle==0.12.0
 
+
+# install R things
+RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
+
 # install SCENIC (https://rawcdn.githack.com/aertslab/SCENIC/701cc7cc4ac762b91479b3bd2eaf5ad5661dd8c2/inst/doc/SCENIC_Setup.html)
 RUN Rscript -e 'BiocManager::install(c("AUCell", "RcisTarget"))'
 RUN Rscript -e 'BiocManager::install(c("GENIE3")) # Optional. Can be replaced by GRNBoost'
@@ -91,9 +95,8 @@ WORKDIR /home/jovyan
 # for gimmemotifs
 RUN chmod -R 777 /home/jovyan/.cache
 
-# install R things, seurat for coexpression networks
-RUN Rscript -e "install.packages('BiocManager', repos='http://cran.us.r-project.org/'); BiocManager::install();"
-RUN Rscript -e 'BiocManager::install("SingleCellExperiment")'
+# seurat for coexpression networks
+RUN Rscript -e 'BiocManager:: install("SingleCellExperiment")'
 RUN Rscript -e "install.packages('Seurat', repos='http://cran.us.r-project.org/')"
 # testing
 RUN Rscript -e "install.packages('scLink', repos='http://cran.us.r-project.org/')"
