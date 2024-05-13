@@ -122,4 +122,7 @@ RUN conda install r-igraph
 RUN Rscript -e 'install.packages("ggnetwork", repos="http://cran.us.r-project.org/")'
 RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
 
+# for CellRank
+RUN pip install cellrank==2.0.4
+
 WORKDIR /scratch
