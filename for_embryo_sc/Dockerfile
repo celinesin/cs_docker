@@ -125,4 +125,7 @@ RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
 # for CellRank
 RUN pip install cellrank==2.0.4
 
+# for nischenetr
+RUN Rscript -e 'devtools::install_github("saeyslab/nichenetr@dd7a859")'
+
 WORKDIR /scratch
