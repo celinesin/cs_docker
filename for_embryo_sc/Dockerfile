@@ -125,4 +125,11 @@ RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
 # for CellRank
 RUN pip install cellrank==2.0.4
 
+# for nischenetr
+RUN Rscript -e 'BiocManager::install("limma")'
+RUN Rscript -e 'devtools::install_github("saeyslab/nichenetr@dd7a859")'
+
+# for fortuna
+RUN pip install optuna==4.1.0
+
 WORKDIR /scratch
