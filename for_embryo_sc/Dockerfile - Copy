@@ -1,9 +1,9 @@
 # Docker file to create image for ROADdt_embryo_sc
-FROM jupyter/datascience-notebook:2023-05-30
+FROM quay.io/jupyter/pytorch-notebook:x86_64-cuda12-python-3.12.9
 
-LABEL version="0.4.0"
+LABEL version="1.0.0"
 LABEL description="Docker instance for ROADdt_embryo_sc (single cell analysis)"
-LABEL maintainer="csin@cemm.oeaw.ac.at"
+LABEL maintainer="celine@lbi-netmed.com"
 
 # generally useful things
 USER root
@@ -11,19 +11,19 @@ RUN apt update
 RUN apt-get update
 RUN apt-get -y install build-essential
 RUN apt-get -y install python3-dev
-RUN conda config --add channels defaults
-RUN conda config --add channels bioconda
-RUN conda config --add channels conda-forge
+RUN mamba config --add channels defaults
+RUN mamba config --add channels bioconda
+RUN mamba config --add channels mamba-forge
 
 # jupyterproblem
-RUN pip install markupsafe==2.0.1
+# RUN pip install markupsafe==2.0.1
 
 # for pretty figures
-RUN pip install matplotlib==3.5.3 palettable==3.3.0
+RUN pip install matplotlib==3.10.1 palettable==3.3.3	
 COPY fonts /usr/share/fonts/truetype/
 RUN fc-cache -fv
 RUN rm /home/jovyan/.cache/matplotlib -rf
-RUN pip install plotly==5.19.0
+RUN pip install plotly==6.1.0
 RUN pip install kaleido==0.2.1
 
 
@@ -52,7 +52,7 @@ COPY netctrl /usr/local/bin/
 
 
 # install tools for genetics
-RUN conda install -c bioconda samtools
+RUN mamba install -c bioconda samtools
 RUN pip install mygene==3.2.2
 RUN apt-get install bedtools
 RUN pip install gseapy==1.1.1
@@ -118,7 +118,7 @@ RUN Rscript -e 'devtools::install_github("lme4/lme4@5b7b27e",dependencies=TRUE)'
 RUN Rscript -e 'install.packages(c("car", "rstatix", "ggpubr"), repos="http://cran.us.r-project.org/")'
 RUN apt-get install -y gfortran
 RUN apt-get -y install libglpk-dev libgmp-dev libxml2-dev
-RUN conda install r-igraph
+RUN mamba install r-igraph
 RUN Rscript -e 'install.packages("ggnetwork", repos="http://cran.us.r-project.org/")'
 RUN Rscript -e 'devtools::install_github("jinworks/CellChat@499c742")'
 
